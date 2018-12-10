@@ -6,13 +6,18 @@ import java.util.Scanner;
     // method to call tickets.java
     // method to call transactions.java
     // Welcome System.out.print();
+
+  public void Menu(){
     private void printTickets() {
-      // Call to tickets.java
-      System.out.printl('\n' + );
+      // Call to tickets.java - print ticketsprices
+      System.out.printl('\n' + g);
     }
 
-    private void
+    private void selectTickets(){
+      // Select tickets and sends to transactions.java
+    }
 
+  }
 
 
 
@@ -20,8 +25,7 @@ import java.util.Scanner;
   public static void main(String[] args){
     TTK_Main tis_main = new TIS_Main();
     Scanner scan = new Scanner(System.in);
-    // print metd
     // run Methods
-
+    tis_main.Menu();
   }
   }
