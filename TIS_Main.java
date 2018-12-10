@@ -20,7 +20,7 @@ import java.util.Scanner;
   public static void main(String[] args){
     TTK_Main tis_main = new TIS_Main();
     Scanner scan = new Scanner(System.in);
-    // print method
+    // print metd
     // run Methods
 
   }
