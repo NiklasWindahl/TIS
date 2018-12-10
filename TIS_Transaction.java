@@ -15,14 +15,14 @@ public class TIS_Transaction{
 // MHS get bank
 
 public String createPayment(){
-  System.out.println("Please enter bankaccount number: ");
+  //System.out.println("Please enter bankaccount number: ");
   String bankaccount = scan.next();
-  System.out.println("Please choose ticket: ");
+  //System.out.println("Please choose ticket: ");
   double cashAmount = Main.totalTicketPrice(); // skapa rätt adress för att hämta ticketpris
   Payment currentPayment = Bank.checkPayment(bankaccount, cashAmount);
 
-  currentPayment.isValid;
-  currentPayment.nameOfBank;
+  // currentPayment.isValid;
+  // currentPayment.nameOfBank;
 
 }
 
