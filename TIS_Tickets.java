@@ -4,12 +4,16 @@ import java.util.Map;
 
 public class TIS_Tickets {
 
+
+public ticketMap(){
   HashMap<String,Double> tickets = new HashMap<String,Double>();
   tickets.put("Child",10.00);
   tickets.put("Young adult",15.50);
   tickets.put("Adult",22.50);
   tickets.put("Senior",15.00);
   tickets.put("Family",40.50);
+
+  }
 
 }
 
