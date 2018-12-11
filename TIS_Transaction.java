@@ -2,27 +2,29 @@ import java.util.Scanner;
 
 public class TIS_Transaction{
 
-  TIS_Main Main = new TIS_Main();
-  TIS_Tickets Ticket = new TIS_Tickets();
-  MHS_Main Bank = new MHS_Main();
+  TIS_Main main = new TIS_Main();
+  TIS_Tickets ticket = new TIS_Tickets();
+  MHS_Main bank = new MHS_Main();
 
   Scanner scan = new Scanner(System.in);
 
   String transaction = "-1";
   double cashAmount = 0;
 
-// MHS get bankaccount
-// MHS get bank
 
-public String createPayment(){
-  System.out.println("Please enter bankaccount number: ");
-  String bankaccount = scan.next();
-  System.out.println("Please choose ticket: ");
-  double cashAmount = Main.totalTicketPrice(); // skapa rätt adress för att hämta ticketpris
-  Payment currentPayment = Bank.checkPayment(bankaccount, cashAmount);
 
-  currentPayment.isValid;
-  currentPayment.nameOfBank;
+public Payment createPayment(String bankaccount, double cashAmount){
+  //System.out.println("Please enter bankaccount number: ");
+  //String bankaccount = scan.next();
+  bankaccount = bankaccount.replace("-", "");
+  //System.out.println("Please choose ticket: ");
+  //double cashAmount = main.totalTicketPrice(); // skapa rätt adress för att hämta ticketpris
+  Payment currentPayment = bank.checkPayment(bankaccount, cashAmount);
+
+
+  // System.out.println(currentPayment.isValid); // gör en retur metod för att kunna få tillbaka om transaktionen gått igenom
+  // System.out.println(currentPayment.nameOfBank);
+  return currentPayment;
 
 }
 
