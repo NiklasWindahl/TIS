@@ -13,7 +13,7 @@ public class TIS_Transaction{
 
 
 
-public Payment createPayment(String bankaccount, double cashAmount){
+public static Payment createPayment(String bankaccount, double cashAmount){
   //System.out.println("Please enter bankaccount number: ");
   //String bankaccount = scan.next();
   bankaccount = bankaccount.replace("-", "");
