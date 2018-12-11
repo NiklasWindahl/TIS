@@ -6,7 +6,8 @@ import java.util.Scanner;
     // ska hanter all output och input
   public class TIS_Main{
     // Classvariables
-      private String operation = "-1";
+    private static String kontoNr = "-1";
+    private static double price = 0;
     // method to call tickets.java
     // method to call transactions.java
     // Welcome System.out.print();
@@ -73,45 +74,72 @@ private void printTickets() {
 }
 // Ger user alternativ att välja, behöver "kopplas" till Array
 private  void printInstructions(){
+
+  Scanner op = new Scanner(System.in);
+  int operation = -1;
+  boolean looping = true;
+  Scanner scanString = new Scanner(System.in);
+
   try{
-    Scanner op = new Scanner(System.in);
-    
-    operation = op.next();
 
-    if (operation.equals("1"))
-       {
-         // Call to transactions class
-           System.out.println();
-       }
-       else if (operation.equals("2"))
-       {
-         // Call to transactions class
-           System.out.println();
-       }
-       else if (operation.equals("3"))
-       {
-         // Call to transactions class
-           System.out.println();
-       }
-       else if (operation.equals("4"))
-       {
-         // Call to transactions class
-           System.out.println();
-       }
-       else if (operation.equals("5"))
-       {
-         // Call to transactions class
-           System.out.println();
-       }
+    while (looping) {
+      operation = op.nextInt();
 
-}     catch (Exception e){
-System.out.println("Var snäll och välj ett giltigt nummber");}
-//loopa
+      if (operation >= 1 && operation <= 5) {
+        price = TIS_Tickets.ticketPrice.get(operation);
+      }
+
+      if (operation == 1)
+      {
+        // Call to transactions class
+        System.out.println();
+        looping = false;
+      }
+      else if (operation == 2)
+      {
+        // Call to transactions class
+        System.out.println();
+        looping = false;
+      }
+      else if (operation == 3)
+      {
+        // Call to transactions class
+        System.out.println();
+        looping = false;
+      }
+      else if (operation == 4)
+      {
+        // Call to transactions class
+        System.out.println();
+        looping = false;
+      }
+      else if (operation == 5)
+      {
+        // Call to transactions class
+        System.out.println();
+        looping = false;
+      }
+      else {
+        System.out.println("Var snäll och välj ett giltigt nummber");
+      }
+    } // while closure
+
+    // Skriv in kontonumret
+    System.out.print("Skriv in ditt kontonummer: ");
+    kontoNr = scanString.next();
+
+} catch (Exception e){
+    System.out.println("Oj.");}
 }
+
+// ---------------------------------------------------------------------------
 
   public static void main(String[] args){
     TIS_Main tis_main = new TIS_Main();
     Scanner scan = new Scanner(System.in);
+
+
+    // Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
 
     tis_main.printTickets();
     tis_main.printInstructions();
