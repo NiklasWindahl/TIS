@@ -8,37 +8,10 @@ import java.util.Scanner;
     // Classvariables
     private static String kontoNr = "-1";
     private static double price = 0;
+    private static int operation = -1;
     // method to call tickets.java
     // method to call transactions.java
     // Welcome System.out.print();
-
-/*  public void userMenu(Scanner scan){
-
-    printTickets();
-
-  //  private void selectTickets(){
-      // Select tickets and sends to transactions.java
-  //  }
-
-  }
-*/
-
-/*
-  public void printTickets(HashMap<String,Double> ticketMap) {
-    // Call to tickets.java//ticketMap - print ticketsprice
-    // Get a set of the entries
-      Set set = ticketMap.entrySet();
-      // Get an iterator
-      Iterator iterator = set.iterator();
-      //Displays Elements
-        while(iterator.hasNext()) {
-       Map.Entry me = (Map.Entry)iterator.next();
-       System.out.print(me.getKey() + ": ");
-       System.out.println(me.getValue());
-    }
-    System.out.println();
-  }
-*/
 
 // Skriver ut rätt antal mellanslag så att biljett-kolumnerna blir raka
 private void addSpacing(String temp, int kolumnBredd) {
@@ -48,6 +21,14 @@ private void addSpacing(String temp, int kolumnBredd) {
   for (int k = 0; k <= spaces; k++) {
     System.out.print(" ");
   }
+}
+
+// Skriv ut kvitto
+private void printReceipt(String bankName) {
+  System.out.println("KVITTO" + '\n');
+  System.out.println("Biljett: " + TIS_Tickets.ticketName.get(operation-1));
+  System.out.println("Pris: " + price);
+  System.out.println("Bank: " + bankName);
 }
 
 // Visar biljetter som går att köpa
@@ -76,7 +57,6 @@ private void printTickets() {
 private  void printInstructions(){
 
   Scanner op = new Scanner(System.in);
-  int operation = -1;
   boolean looping = true;
   Scanner scanString = new Scanner(System.in);
 
@@ -86,13 +66,12 @@ private  void printInstructions(){
       operation = op.nextInt();
 
       if (operation >= 1 && operation <= 5) {
-        price = TIS_Tickets.ticketPrice.get(operation);
+        price = TIS_Tickets.ticketPrice.get(operation-1);
       }
 
       if (operation == 1)
       {
-        // Call to transactions class
-        System.out.println();
+
         looping = false;
       }
       else if (operation == 2)
@@ -138,12 +117,40 @@ private  void printInstructions(){
     TIS_Main tis_main = new TIS_Main();
     Scanner scan = new Scanner(System.in);
 
-
-    // Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
-
     tis_main.printTickets();
     tis_main.printInstructions();
+
+    Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
+
+    boolean isValid = objekt.isValid;
+    String bankName = objekt.nameOfBank;
+
+    if (isValid) {
+      // GODKÄND BETALNING
+      tis_main.printReceipt(bankName);
+    }
+
+    // System.out.println(isValid);
+    // System.out.println(bankName);
 
     //  tis_main.userMenu();
   }
   }
+
+
+  /*
+  public void printTickets(HashMap<String,Double> ticketMap) {
+    // Call to tickets.java//ticketMap - print ticketsprice
+    // Get a set of the entries
+      Set set = ticketMap.entrySet();
+      // Get an iterator
+      Iterator iterator = set.iterator();
+      //Displays Elements
+        while(iterator.hasNext()) {
+       Map.Entry me = (Map.Entry)iterator.next();
+       System.out.print(me.getKey() + ": ");
+       System.out.println(me.getValue());
+    }
+    System.out.println();
+  }
+*/
