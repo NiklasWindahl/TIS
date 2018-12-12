@@ -1,17 +1,10 @@
-// import java.util.*;
 import java.util.Scanner;
-// import java.util.HashMap;
-// import java.util.Map;
 
-    // ska hanter all output och input
   public class TIS_Main{
-    // Classvariables
+
     private static String kontoNr = "-1";
     private static double price = 0;
     private static int operation = -1;
-    // method to call tickets.java
-    // method to call transactions.java
-    // Welcome System.out.print();
 
 // Skriver ut rätt antal mellanslag så att biljett-kolumnerna blir raka
 private void addSpacing(String temp, int kolumnBredd) {
@@ -23,7 +16,7 @@ private void addSpacing(String temp, int kolumnBredd) {
   }
 }
 
-// Skriv ut kvitto
+// Skriver ut kvitto
 private void printReceipt(String bankName) {
   System.out.println("KVITTO" + '\n');
   System.out.println("Biljett: " + TIS_Tickets.ticketName.get(operation-1));
@@ -53,8 +46,9 @@ private void printTickets() {
     System.out.println("Pris: " + TIS_Tickets.ticketPrice.get(i) + " kr / st");
   }
 }
-// Ger user alternativ att välja, behöver "kopplas" till Array
-private  void printInstructions(){
+
+// Tar emot användarens biljettval och kontonummer
+private  void userInputs(){
 
   Scanner op = new Scanner(System.in);
   boolean looping = true;
@@ -68,10 +62,14 @@ private  void printInstructions(){
       if (operation >= 1 && operation <= 5) {
         price = TIS_Tickets.ticketPrice.get(operation-1);
       }
+      // else {
+      //  System.out.println("Var snäll och välj ett giltigt nummber");
+      // }
 
+
+      // --- Behöver vi dessa? ---
       if (operation == 1)
       {
-
         looping = false;
       }
       else if (operation == 2)
@@ -101,6 +99,7 @@ private  void printInstructions(){
       else {
         System.out.println("Var snäll och välj ett giltigt nummber");
       }
+
     } // while closure
 
     // Skriv in kontonumret
@@ -118,24 +117,21 @@ private  void printInstructions(){
     Scanner scan = new Scanner(System.in);
 
     tis_main.printTickets();
-    tis_main.printInstructions();
+    tis_main.userInputs();
 
     Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
 
     boolean isValid = objekt.isValid;
     String bankName = objekt.nameOfBank;
 
-    if (isValid) {
-      // GODKÄND BETALNING
+    if (isValid) { // Om betalningen godkändes
       tis_main.printReceipt(bankName);
+    } else {
+      System.out.println("Betalningen nekades.");
     }
 
-    // System.out.println(isValid);
-    // System.out.println(bankName);
-
-    //  tis_main.userMenu();
   }
-  }
+}
 
 
   /*
