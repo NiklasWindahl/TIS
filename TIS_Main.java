@@ -17,11 +17,13 @@ private void addSpacing(String temp, int kolumnBredd) {
 }
 
 // Skriver ut kvitto
+// Förstår mig inte på det där med kolumnerna, du får anpassa det om du vill.
 private void printReceipt(String bankName) {
-  System.out.println("KVITTO" + '\n');
-  System.out.println("Biljett: " + TIS_Tickets.ticketName.get(operation-1));
-  System.out.println("Pris: " + price);
-  System.out.println("Bank: " + bankName);
+  System.out.println('\t'+ "KVITTO" + '\t');
+  System.out.println("    Tack för ert köp!");
+  System.out.println('\n'+"Biljett: " + TIS_Tickets.ticketName.get(operation-1));
+  System.out.println('\n'+"Pris: " + price);
+  System.out.println('\n'+"Bank: " + bankName);
 }
 
 // Visar biljetter som går att köpa
