@@ -1,11 +1,17 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.concurrent.TimeUnit;
 
-  public class TIS_Main {
+public class TIS_Main {
 
-    private static String kontoNr = "-1";
-    private static double price = 0;
-    private static int operation = -1;
+  private static String kontoNr = "-1";
+  private static double price = 0;
+  private static int operation = -1;
+
+  public static final String ANSI_RESET = "\u001B[0m";
+  public static final String ANSI_RED = "\u001B[31m";
+  public static final String ANSI_GREEN = "\u001B[32m";
+  public static final String ANSI_WHITE = "\u001B[37m";
 
 // Skriver ut rätt antal mellanslag så att biljett-kolumnerna blir raka
 private void addSpacing(String temp, int kolumnBredd) {
@@ -19,13 +25,13 @@ private void addSpacing(String temp, int kolumnBredd) {
 
 // Skriver ut kvittot
 private void printReceipt(String bankName) {
-  System.out.println('\n' + "------------------------------" + '\n');
+  System.out.println(ANSI_WHITE + '\n' + "------------------------------" + '\n');
   System.out.println('\t' + "KVITTO" + '\n');
   System.out.println('\t'+"Biljett: " + TIS_Tickets.ticketName.get(operation-1));
   System.out.println('\t'+"Pris:    " + price);
   System.out.println('\t'+"Bank:    " + bankName + '\n');
   System.out.println('\t' + "Tack för ert köp!");
-  System.out.println('\n' + "------------------------------" + '\n');
+  System.out.println('\n' + "------------------------------" + ANSI_RESET);
 }
 
 // Visar biljetter som går att köpa
@@ -33,7 +39,7 @@ private void printTickets() {
   int kolumnBredd;
   String temp;
 
-  System.out.println('\n' + "Välj biljett med hjälp av nummer 1-5" + '\n');
+  System.out.println('\n' + "Tillgängliga biljetter:" + '\n');
   for (int i = 0; i < TIS_Tickets.ticketName.size(); i++) {
     System.out.print((i+1) + ". " + TIS_Tickets.ticketName.get(i));
 
@@ -49,6 +55,7 @@ private void printTickets() {
 
     System.out.println("Pris: " + TIS_Tickets.ticketPrice.get(i) + " kr / st");
   }
+  System.out.println();
 }
 
 // Tar emot användarens biljettval och kontonummer
@@ -62,6 +69,7 @@ private  void userInputs() {
 
       try {
 
+        System.out.print("Välj biljett (1-5): ");
         operation = op.nextInt();
 
         if (operation >= 1 && operation <= 5) {
@@ -83,25 +91,42 @@ private  void userInputs() {
   kontoNr = scanString.next();
 }
 
+  private void callBank(TIS_Main tis_main) {
+    System.out.print('\n' + "Kontaktar banken ");
 
-// ---------------------------------------------------------------------------
-
-  public static void main(String[] args){
-    TIS_Main tis_main = new TIS_Main();
-    Scanner scan = new Scanner(System.in);
-
-    tis_main.printTickets();
-    tis_main.userInputs();
+    for (int i = 0; i < 12; i++) {
+      try {
+        TimeUnit.MILLISECONDS.sleep(90);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      System.out.print(".");
+    }
 
     Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
 
     boolean isValid = objekt.isValid;
     String bankName = objekt.nameOfBank;
 
-    if (isValid) { // Om betalningen godkändes
+    if (isValid) {
+      System.out.println(ANSI_GREEN + " Betalningen godkändes!" + ANSI_RESET);
       tis_main.printReceipt(bankName);
     } else {
-      System.out.println("Betalningen nekades.");
+      System.out.println(ANSI_RED + " Betalningen nekades!" + ANSI_RESET);
+    }
+  }
+
+// ---------------------------------------------------------------------------
+
+  public static void main(String[] args){
+    TIS_Main tis_main = new TIS_Main();
+    Scanner scan = new Scanner(System.in);
+    boolean looping = true;
+
+    while (looping) {
+      tis_main.printTickets();
+      tis_main.userInputs();
+      tis_main.callBank(tis_main);
     }
 
   }
