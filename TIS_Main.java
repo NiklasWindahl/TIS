@@ -17,14 +17,15 @@ private void addSpacing(String temp, int kolumnBredd) {
   }
 }
 
-// Skriver ut kvitto
-// Förstår mig inte på det där med kolumnerna, du får anpassa det om du vill.
+// Skriver ut kvittot
 private void printReceipt(String bankName) {
-  System.out.println('\t'+ "KVITTO" + '\t');
-  System.out.println("    Tack för ert köp!");
-  System.out.println('\n'+"Biljett: " + TIS_Tickets.ticketName.get(operation-1));
-  System.out.println('\n'+"Pris: " + price);
-  System.out.println('\n'+"Bank: " + bankName);
+  System.out.println('\n' + "------------------------------" + '\n');
+  System.out.println('\t' + "KVITTO" + '\n');
+  System.out.println('\t'+"Biljett: " + TIS_Tickets.ticketName.get(operation-1));
+  System.out.println('\t'+"Pris:    " + price);
+  System.out.println('\t'+"Bank:    " + bankName + '\n');
+  System.out.println('\t' + "Tack för ert köp!");
+  System.out.println('\n' + "------------------------------" + '\n');
 }
 
 // Visar biljetter som går att köpa
@@ -61,58 +62,22 @@ private  void userInputs() {
 
       try {
 
-      operation = op.nextInt();
+        operation = op.nextInt();
 
-      if (operation >= 1 && operation <= 5) {
-        price = TIS_Tickets.ticketPrice.get(operation-1);
-        looping = false;
-      } else {
-        System.out.println("Välj biljett med siffrorna 1-5.");
-      }
-
-      /*
-      // --- Behöver vi dessa? ---
-      if (operation == 1)
-      {
-        looping = false;
-      }
-      else if (operation == 2)
-      {
-        // Call to transactions class
-        System.out.println();
-        looping = false;
-      }
-      else if (operation == 3)
-      {
-        // Call to transactions class
-        System.out.println();
-        looping = false;
-      }
-      else if (operation == 4)
-      {
-        // Call to transactions class
-        System.out.println();
-        looping = false;
-      }
-      else if (operation == 5)
-      {
-        // Call to transactions class
-        System.out.println();
-        looping = false;
-      }
-      else {
-        System.out.println("Var snäll och välj ett giltigt nummber");
-      }
-    */
+        if (operation >= 1 && operation <= 5) {
+          price = TIS_Tickets.ticketPrice.get(operation-1);
+          looping = false;
+        } else {
+          System.out.println("Välj biljett med siffrorna 1-5.");
+        }
 
       } catch (InputMismatchException e) {
         System.out.println("Fel datatyp, försök igen.");
         op.next();
+      } catch (Exception e) {
+          System.out.println("Ett fel har inträffat.");
       }
-      catch (Exception e) {
-        System.out.println("Ett fel har inträffat.");
-      }
-    } // while closure
+    }
 
   System.out.print("Ange ditt kontonummer: ");
   kontoNr = scanString.next();
@@ -141,21 +106,3 @@ private  void userInputs() {
 
   }
 }
-
-
-  /*
-  public void printTickets(HashMap<String,Double> ticketMap) {
-    // Call to tickets.java//ticketMap - print ticketsprice
-    // Get a set of the entries
-      Set set = ticketMap.entrySet();
-      // Get an iterator
-      Iterator iterator = set.iterator();
-      //Displays Elements
-        while(iterator.hasNext()) {
-       Map.Entry me = (Map.Entry)iterator.next();
-       System.out.print(me.getKey() + ": ");
-       System.out.println(me.getValue());
-    }
-    System.out.println();
-  }
-*/
