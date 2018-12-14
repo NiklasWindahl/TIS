@@ -1,6 +1,7 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
-  public class TIS_Main{
+  public class TIS_Main {
 
     private static String kontoNr = "-1";
     private static double price = 0;
@@ -31,7 +32,7 @@ private void printTickets() {
   int kolumnBredd;
   String temp;
 
-  System.out.println("Välj biljett med hjälp av nummer 1-5");
+  System.out.println('\n' + "Välj biljett med hjälp av nummer 1-5" + '\n');
   for (int i = 0; i < TIS_Tickets.ticketName.size(); i++) {
     System.out.print((i+1) + ". " + TIS_Tickets.ticketName.get(i));
 
@@ -50,25 +51,26 @@ private void printTickets() {
 }
 
 // Tar emot användarens biljettval och kontonummer
-private  void userInputs(){
+private  void userInputs() {
 
   Scanner op = new Scanner(System.in);
   boolean looping = true;
   Scanner scanString = new Scanner(System.in);
 
-  try{
-
     while (looping) {
+
+      try {
+
       operation = op.nextInt();
 
       if (operation >= 1 && operation <= 5) {
         price = TIS_Tickets.ticketPrice.get(operation-1);
+        looping = false;
+      } else {
+        System.out.println("Välj biljett med siffrorna 1-5.");
       }
-      // else {
-      //  System.out.println("Var snäll och välj ett giltigt nummber");
-      // }
 
-
+      /*
       // --- Behöver vi dessa? ---
       if (operation == 1)
       {
@@ -101,16 +103,21 @@ private  void userInputs(){
       else {
         System.out.println("Var snäll och välj ett giltigt nummber");
       }
+    */
 
+      } catch (InputMismatchException e) {
+        System.out.println("Fel datatyp, försök igen.");
+        op.next();
+      }
+      catch (Exception e) {
+        System.out.println("Ett fel har inträffat.");
+      }
     } // while closure
 
-    // Skriv in kontonumret
-    System.out.print("Skriv in ditt kontonummer: ");
-    kontoNr = scanString.next();
-
-} catch (Exception e){
-    System.out.println("Oj.");}
+  System.out.print("Ange ditt kontonummer: ");
+  kontoNr = scanString.next();
 }
+
 
 // ---------------------------------------------------------------------------
 
