@@ -4,7 +4,7 @@ public class TIS_Transaction{
 
   TIS_Main main = new TIS_Main();
   TIS_Tickets ticket = new TIS_Tickets();
-  MHS_Main bank = new MHS_Main();
+  static MHS_Main bank = new MHS_Main();
 
   Scanner scan = new Scanner(System.in);
 

@@ -1,44 +1,10 @@
-// import java.util.*;
 import java.util.Scanner;
-// import java.util.HashMap;
-// import java.util.Map;
 
-    // ska hanter all output och input
   public class TIS_Main{
-    // Classvariables
+
     private static String kontoNr = "-1";
     private static double price = 0;
-    // method to call tickets.java
-    // method to call transactions.java
-    // Welcome System.out.print();
-
-/*  public void userMenu(Scanner scan){
-
-    printTickets();
-
-  //  private void selectTickets(){
-      // Select tickets and sends to transactions.java
-  //  }
-
-  }
-*/
-
-/*
-  public void printTickets(HashMap<String,Double> ticketMap) {
-    // Call to tickets.java//ticketMap - print ticketsprice
-    // Get a set of the entries
-      Set set = ticketMap.entrySet();
-      // Get an iterator
-      Iterator iterator = set.iterator();
-      //Displays Elements
-        while(iterator.hasNext()) {
-       Map.Entry me = (Map.Entry)iterator.next();
-       System.out.print(me.getKey() + ": ");
-       System.out.println(me.getValue());
-    }
-    System.out.println();
-  }
-*/
+    private static int operation = -1;
 
 // Skriver ut rätt antal mellanslag så att biljett-kolumnerna blir raka
 private void addSpacing(String temp, int kolumnBredd) {
@@ -48,6 +14,16 @@ private void addSpacing(String temp, int kolumnBredd) {
   for (int k = 0; k <= spaces; k++) {
     System.out.print(" ");
   }
+}
+
+// Skriver ut kvitto
+// Förstår mig inte på det där med kolumnerna, du får anpassa det om du vill.
+private void printReceipt(String bankName) {
+  System.out.println('\t'+ "KVITTO" + '\t');
+  System.out.println("    Tack för ert köp!");
+  System.out.println('\n'+"Biljett: " + TIS_Tickets.ticketName.get(operation-1));
+  System.out.println('\n'+"Pris: " + price);
+  System.out.println('\n'+"Bank: " + bankName);
 }
 
 // Visar biljetter som går att köpa
@@ -72,11 +48,11 @@ private void printTickets() {
     System.out.println("Pris: " + TIS_Tickets.ticketPrice.get(i) + " kr / st");
   }
 }
-// Ger user alternativ att välja, behöver "kopplas" till Array
-private  void printInstructions(){
+
+// Tar emot användarens biljettval och kontonummer
+private  void userInputs(){
 
   Scanner op = new Scanner(System.in);
-  int operation = -1;
   boolean looping = true;
   Scanner scanString = new Scanner(System.in);
 
@@ -86,13 +62,16 @@ private  void printInstructions(){
       operation = op.nextInt();
 
       if (operation >= 1 && operation <= 5) {
-        price = TIS_Tickets.ticketPrice.get(operation);
+        price = TIS_Tickets.ticketPrice.get(operation-1);
       }
+      // else {
+      //  System.out.println("Var snäll och välj ett giltigt nummber");
+      // }
 
+
+      // --- Behöver vi dessa? ---
       if (operation == 1)
       {
-        // Call to transactions class
-        System.out.println();
         looping = false;
       }
       else if (operation == 2)
@@ -122,6 +101,7 @@ private  void printInstructions(){
       else {
         System.out.println("Var snäll och välj ett giltigt nummber");
       }
+
     } // while closure
 
     // Skriv in kontonumret
@@ -138,12 +118,37 @@ private  void printInstructions(){
     TIS_Main tis_main = new TIS_Main();
     Scanner scan = new Scanner(System.in);
 
-
-    // Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
-
     tis_main.printTickets();
-    tis_main.printInstructions();
+    tis_main.userInputs();
 
-    //  tis_main.userMenu();
+    Payment objekt = TIS_Transaction.createPayment(kontoNr, price);
+
+    boolean isValid = objekt.isValid;
+    String bankName = objekt.nameOfBank;
+
+    if (isValid) { // Om betalningen godkändes
+      tis_main.printReceipt(bankName);
+    } else {
+      System.out.println("Betalningen nekades.");
+    }
+
   }
+}
+
+
+  /*
+  public void printTickets(HashMap<String,Double> ticketMap) {
+    // Call to tickets.java//ticketMap - print ticketsprice
+    // Get a set of the entries
+      Set set = ticketMap.entrySet();
+      // Get an iterator
+      Iterator iterator = set.iterator();
+      //Displays Elements
+        while(iterator.hasNext()) {
+       Map.Entry me = (Map.Entry)iterator.next();
+       System.out.print(me.getKey() + ": ");
+       System.out.println(me.getValue());
+    }
+    System.out.println();
   }
+*/
